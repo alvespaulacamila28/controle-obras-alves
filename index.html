@@ -1,193 +1,52 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Controle de Obras Alves</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, sans-serif; background: #f7f1ea; color: #2e241f; }
-    header { padding: 24px 18px 14px; background: linear-gradient(135deg, #3d2b24, #9a735c); color: white; border-radius: 0 0 28px 28px; }
-    header h1 { margin: 0; font-size: 28px; }
-    header p { margin: 8px 0 0; opacity: .9; }
-    main { max-width: 980px; margin: 0 auto; padding: 16px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
-    .card { background: #fffaf6; border: 1px solid #eadbd0; border-radius: 18px; padding: 14px; box-shadow: 0 8px 22px rgba(56, 38, 28, .08); }
-    .metric { font-size: 24px; font-weight: 800; margin-top: 6px; }
-    nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; position: sticky; bottom: 0; background: rgba(247,241,234,.96); padding: 10px; border-top: 1px solid #e6d6c9; }
-    nav button, .primary { border: 0; border-radius: 14px; background: #7d5644; color: white; padding: 12px 10px; font-weight: 700; }
-    nav button.active { background: #2f211c; }
-    section { display: none; padding-bottom: 86px; }
-    section.active { display: block; }
-    h2 { margin: 22px 0 12px; }
-    form { display: grid; gap: 10px; }
-    label { font-size: 13px; font-weight: 700; color: #5c473c; }
-    input, select, textarea { width: 100%; padding: 12px; border: 1px solid #d7c6bb; border-radius: 12px; background: white; font-size: 16px; }
-    textarea { min-height: 88px; resize: vertical; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .list { display: grid; gap: 10px; margin-top: 12px; }
-    .item { background: white; border: 1px solid #eadbd0; border-radius: 16px; padding: 12px; }
-    .item strong { display: block; font-size: 17px; }
-    .small { color: #7c6a60; font-size: 13px; margin-top: 4px; }
-    .danger { color: #a33; font-weight: 800; }
-    .success { color: #187a42; font-weight: 800; }
-    .muted { color: #7b6d66; }
-    .pill { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #efe2d7; font-size: 12px; margin-top: 6px; }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Controle de Obras Alves</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f7f1ea;color:#2e241f}header{padding:24px 18px 14px;background:linear-gradient(135deg,#3d2b24,#9a735c);color:white;border-radius:0 0 28px 28px}header h1{margin:0;font-size:28px}header p{margin:8px 0 0;opacity:.9}main{max-width:980px;margin:0 auto;padding:16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.card,.item{background:#fffaf6;border:1px solid #eadbd0;border-radius:18px;padding:14px;box-shadow:0 8px 22px rgba(56,38,28,.08)}.metric{font-size:24px;font-weight:800;margin-top:6px}nav{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;position:sticky;bottom:0;background:rgba(247,241,234,.96);padding:10px;border-top:1px solid #e6d6c9}nav button,.primary{border:0;border-radius:14px;background:#7d5644;color:white;padding:12px 8px;font-weight:700}nav button{font-size:13px}nav button.active{background:#2f211c}section{display:none;padding-bottom:86px}section.active{display:block}h2{margin:22px 0 12px}form{display:grid;gap:10px}label{font-size:13px;font-weight:700;color:#5c473c}input,select,textarea{width:100%;padding:12px;border:1px solid #d7c6bb;border-radius:12px;background:white;font-size:16px}textarea{min-height:88px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.list{display:grid;gap:10px;margin-top:12px}.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.small{color:#7c6a60;font-size:13px;margin-top:4px}.danger{color:#a33;font-weight:800}.success{color:#187a42;font-weight:800}.muted{color:#7b6d66}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#efe2d7;font-size:12px;margin-top:6px}.remover{border:0;border-radius:10px;background:#ffe5e0;color:#9b2f21;padding:8px 10px;font-weight:800}.limpar{border:1px solid #c9b4a7;border-radius:14px;background:#fffaf6;color:#7d5644;padding:12px 10px;font-weight:800;margin-top:12px}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Controle de Obras Alves</h1>
-    <p>Clientes, obras, orçamento, gastos e anotações em um só lugar.</p>
-  </header>
-
-  <main>
-    <section id="dashboard" class="active">
-      <h2>Resumo geral</h2>
-      <div class="grid">
-        <div class="card"><span>Clientes</span><div class="metric" id="totalClientes">0</div></div>
-        <div class="card"><span>Obras</span><div class="metric" id="totalObras">0</div></div>
-        <div class="card"><span>Gastos</span><div class="metric" id="totalGastos">R$ 0,00</div></div>
-        <div class="card"><span>Lucro / Prejuízo</span><div class="metric" id="lucroGeral">R$ 0,00</div></div>
-      </div>
-      <h2>Obras cadastradas</h2>
-      <div id="listaResumo" class="list"></div>
-    </section>
-
-    <section id="clientes">
-      <h2>Novo cliente</h2>
-      <div class="card">
-        <form id="formCliente">
-          <div><label>Nome</label><input name="nome" required></div>
-          <div><label>Telefone</label><input name="telefone"></div>
-          <div><label>Endereço</label><input name="endereco"></div>
-          <div><label>Observações</label><textarea name="observacoes"></textarea></div>
-          <button class="primary">Salvar cliente</button>
-        </form>
-      </div>
-      <h2>Clientes</h2>
-      <div id="listaClientes" class="list"></div>
-    </section>
-
-    <section id="obras">
-      <h2>Nova obra</h2>
-      <div class="card">
-        <form id="formObra">
-          <div><label>Cliente</label><select name="clienteId" id="selectClientes" required></select></div>
-          <div><label>Serviço</label><input name="servico" placeholder="Ex: Reforma do banheiro" required></div>
-          <div><label>Endereço da obra</label><input name="endereco"></div>
-          <div class="row"><div><label>Status</label><select name="status"><option>Orçamento</option><option>Em andamento</option><option>Finalizada</option></select></div><div><label>Valor cobrado</label><input name="valor" type="number" step="0.01" value="0"></div></div>
-          <div><label>Observações</label><textarea name="observacoes"></textarea></div>
-          <button class="primary">Salvar obra</button>
-        </form>
-      </div>
-      <h2>Obras</h2>
-      <div id="listaObras" class="list"></div>
-    </section>
-
-    <section id="orcamento">
-      <h2>Adicionar material/orçamento</h2>
-      <div class="card">
-        <form id="formOrcamento">
-          <div><label>Obra</label><select name="obraId" class="selectObras" required></select></div>
-          <div><label>Material ou item</label><input name="descricao" placeholder="Ex: Cimento, tinta, piso" required></div>
-          <div class="row"><div><label>Quantidade</label><input name="quantidade" type="number" step="0.01" value="1"></div><div><label>Valor unitário</label><input name="valor" type="number" step="0.01" value="0"></div></div>
-          <button class="primary">Adicionar item</button>
-        </form>
-      </div>
-      <div id="listaOrcamento" class="list"></div>
-    </section>
-
-    <section id="gastos">
-      <h2>Lançar gasto</h2>
-      <div class="card">
-        <form id="formGasto">
-          <div><label>Obra</label><select name="obraId" class="selectObras" required></select></div>
-          <div><label>Descrição</label><input name="descricao" required></div>
-          <div class="row"><div><label>Categoria</label><input name="categoria" placeholder="Material, diária, frete"></div><div><label>Forma de pagamento</label><input name="pagamento" placeholder="Pix, dinheiro, cartão"></div></div>
-          <div class="row"><div><label>Quantidade</label><input name="quantidade" type="number" step="0.01" value="1"></div><div><label>Valor unitário</label><input name="valor" type="number" step="0.01" value="0"></div></div>
-          <button class="primary">Salvar gasto</button>
-        </form>
-      </div>
-      <div id="listaGastos" class="list"></div>
-    </section>
-
-    <section id="notas">
-      <h2>Anotação diária</h2>
-      <div class="card">
-        <form id="formNota">
-          <div><label>Obra</label><select name="obraId" class="selectObras" required></select></div>
-          <div><label>O que foi feito?</label><textarea name="feito" required></textarea></div>
-          <div><label>O que falta?</label><textarea name="falta"></textarea></div>
-          <div><label>Materiais para comprar</label><textarea name="materiais"></textarea></div>
-          <div><label>Problemas encontrados</label><textarea name="problemas"></textarea></div>
-          <button class="primary">Salvar anotação</button>
-        </form>
-      </div>
-      <div id="listaNotas" class="list"></div>
-    </section>
-  </main>
-
-  <nav>
-    <button data-tab="dashboard" class="active">Início</button>
-    <button data-tab="clientes">Clientes</button>
-    <button data-tab="obras">Obras</button>
-    <button data-tab="orcamento">Orç.</button>
-    <button data-tab="gastos">Gastos</button>
-  </nav>
-
-  <script>
-    const storeKey = 'controle-obras-alves-v1';
-    const app = JSON.parse(localStorage.getItem(storeKey) || '{"clientes":[],"obras":[],"orcamento":[],"gastos":[],"notas":[]}');
-    const money = v => (Number(v)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-    const save = () => { localStorage.setItem(storeKey, JSON.stringify(app)); render(); };
-    const id = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
-    const obraNome = obraId => { const o = app.obras.find(x=>x.id===obraId); return o ? o.servico : 'Obra removida'; };
-    const clienteNome = clienteId => { const c = app.clientes.find(x=>x.id===clienteId); return c ? c.nome : 'Cliente não encontrado'; };
-    const totalGastoObra = obraId => app.gastos.filter(g=>g.obraId===obraId).reduce((s,g)=>s+(Number(g.quantidade)*Number(g.valor)),0);
-    const totalOrcamentoObra = obraId => app.orcamento.filter(i=>i.obraId===obraId).reduce((s,i)=>s+(Number(i.quantidade)*Number(i.valor)),0);
-
-    document.querySelectorAll('nav button').forEach(btn=>btn.onclick=()=>{
-      document.querySelectorAll('section, nav button').forEach(el=>el.classList.remove('active'));
-      document.getElementById(btn.dataset.tab).classList.add('active');
-      btn.classList.add('active');
-    });
-
-    formCliente.onsubmit = e => { e.preventDefault(); const d=Object.fromEntries(new FormData(e.target)); app.clientes.push({id:id(),...d}); e.target.reset(); save(); };
-    formObra.onsubmit = e => { e.preventDefault(); const d=Object.fromEntries(new FormData(e.target)); app.obras.push({id:id(),...d,valor:Number(d.valor||0)}); e.target.reset(); save(); };
-    formOrcamento.onsubmit = e => { e.preventDefault(); const d=Object.fromEntries(new FormData(e.target)); app.orcamento.push({id:id(),...d,quantidade:Number(d.quantidade||0),valor:Number(d.valor||0)}); e.target.reset(); save(); };
-    formGasto.onsubmit = e => { e.preventDefault(); const d=Object.fromEntries(new FormData(e.target)); app.gastos.push({id:id(),data:new Date().toLocaleDateString('pt-BR'),...d,quantidade:Number(d.quantidade||0),valor:Number(d.valor||0)}); e.target.reset(); save(); };
-    formNota.onsubmit = e => { e.preventDefault(); const d=Object.fromEntries(new FormData(e.target)); app.notas.push({id:id(),data:new Date().toLocaleDateString('pt-BR'),...d}); e.target.reset(); save(); };
-
-    function renderOptions(){
-      selectClientes.innerHTML = app.clientes.length ? app.clientes.map(c=>`<option value="${c.id}">${c.nome}</option>`).join('') : '<option value="">Cadastre um cliente primeiro</option>';
-      document.querySelectorAll('.selectObras').forEach(s=>s.innerHTML = app.obras.length ? app.obras.map(o=>`<option value="${o.id}">${o.servico} - ${clienteNome(o.clienteId)}</option>`).join('') : '<option value="">Cadastre uma obra primeiro</option>');
-    }
-
-    function render(){
-      renderOptions();
-      const totalGastos = app.gastos.reduce((s,g)=>s+(Number(g.quantidade)*Number(g.valor)),0);
-      const totalCobrado = app.obras.reduce((s,o)=>s+Number(o.valor||0),0);
-      totalClientes.textContent = app.clientes.length;
-      totalObras.textContent = app.obras.length;
-      totalGastos.textContent = money(totalGastos);
-      lucroGeral.textContent = money(totalCobrado-totalGastos);
-      lucroGeral.className = 'metric ' + (totalCobrado-totalGastos >= 0 ? 'success' : 'danger');
-
-      listaClientes.innerHTML = app.clientes.map(c=>`<div class="item"><strong>${c.nome}</strong><div class="small">${c.telefone || 'Sem telefone'} • ${c.endereco || 'Sem endereço'}</div><p>${c.observacoes || ''}</p></div>`).join('') || '<p class="muted">Nenhum cliente cadastrado.</p>';
-      listaObras.innerHTML = app.obras.map(o=>cardObra(o)).join('') || '<p class="muted">Nenhuma obra cadastrada.</p>';
-      listaResumo.innerHTML = app.obras.map(o=>cardObra(o)).join('') || '<p class="muted">Comece cadastrando um cliente e uma obra.</p>';
-      listaOrcamento.innerHTML = app.orcamento.map(i=>`<div class="item"><strong>${i.descricao}</strong><div class="small">${obraNome(i.obraId)} • ${i.quantidade} x ${money(i.valor)} = <b>${money(i.quantidade*i.valor)}</b></div></div>`).join('') || '<p class="muted">Nenhum item de orçamento lançado.</p>';
-      listaGastos.innerHTML = app.gastos.map(g=>`<div class="item"><strong>${g.descricao}</strong><div class="small">${g.data} • ${obraNome(g.obraId)} • ${g.categoria || 'Sem categoria'} • ${g.pagamento || 'Sem pagamento'}</div><div class="pill">${g.quantidade} x ${money(g.valor)} = ${money(g.quantidade*g.valor)}</div></div>`).join('') || '<p class="muted">Nenhum gasto lançado.</p>';
-      listaNotas.innerHTML = app.notas.map(n=>`<div class="item"><strong>${obraNome(n.obraId)} • ${n.data}</strong><p><b>Feito:</b> ${n.feito}</p><p><b>Falta:</b> ${n.falta || '-'}</p><p><b>Comprar:</b> ${n.materiais || '-'}</p><p><b>Problemas:</b> ${n.problemas || '-'}</p></div>`).join('') || '<p class="muted">Nenhuma anotação lançada.</p>';
-    }
-
-    function cardObra(o){
-      const gasto = totalGastoObra(o.id); const lucro = Number(o.valor||0)-gasto; const orcado = totalOrcamentoObra(o.id);
-      return `<div class="item"><strong>${o.servico}</strong><div class="small">${clienteNome(o.clienteId)} • ${o.status} • ${o.endereco || 'Sem endereço'}</div><div class="pill">Cobrado: ${money(o.valor)}</div> <div class="pill">Orçamento materiais: ${money(orcado)}</div> <div class="pill">Gastos: ${money(gasto)}</div><p class="${lucro>=0?'success':'danger'}">Resultado: ${money(lucro)}</p><p>${o.observacoes || ''}</p></div>`;
-    }
-
-    render();
-  </script>
+<header><h1>Controle de Obras Alves</h1><p>Clientes, obras, orçamento, gastos e anotações em um só lugar.</p></header>
+<main>
+<section id="dashboard" class="active"><h2>Resumo geral</h2><div class="grid"><div class="card"><span>Clientes</span><div class="metric" id="totalClientes">0</div></div><div class="card"><span>Obras</span><div class="metric" id="totalObras">0</div></div><div class="card"><span>Gastos</span><div class="metric" id="totalGastos">R$ 0,00</div></div><div class="card"><span>Lucro / Prejuízo</span><div class="metric" id="lucroGeral">R$ 0,00</div></div></div><button class="limpar" onclick="limparTudo()">Limpar tudo</button><h2>Obras cadastradas</h2><div id="listaResumo" class="list"></div></section>
+<section id="clientes"><h2>Novo cliente</h2><div class="card"><form id="formCliente"><div><label>Nome</label><input name="nome" required></div><div><label>Telefone</label><input name="telefone"></div><div><label>Endereço</label><input name="endereco"></div><div><label>Observações</label><textarea name="observacoes"></textarea></div><button class="primary">Salvar cliente</button></form></div><h2>Clientes</h2><div id="listaClientes" class="list"></div></section>
+<section id="obras"><h2>Nova obra</h2><div class="card"><form id="formObra"><div><label>Cliente</label><select name="clienteId" id="selectClientes" required></select></div><div><label>Serviço</label><input name="servico" placeholder="Ex: Reforma do banheiro" required></div><div><label>Endereço da obra</label><input name="endereco"></div><div class="row"><div><label>Status</label><select name="status"><option>Orçamento</option><option>Em andamento</option><option>Finalizada</option></select></div><div><label>Valor cobrado</label><input name="valor" type="number" step="0.01" value="0"></div></div><div><label>Observações</label><textarea name="observacoes"></textarea></div><button class="primary">Salvar obra</button></form></div><h2>Obras</h2><div id="listaObras" class="list"></div></section>
+<section id="orcamento"><h2>Adicionar material/orçamento</h2><div class="card"><form id="formOrcamento"><div><label>Obra</label><select name="obraId" class="selectObras" required></select></div><div><label>Material ou item</label><input name="descricao" required></div><div class="row"><div><label>Quantidade</label><input name="quantidade" type="number" step="0.01" value="1"></div><div><label>Valor unitário</label><input name="valor" type="number" step="0.01" value="0"></div></div><button class="primary">Adicionar item</button></form></div><div id="listaOrcamento" class="list"></div></section>
+<section id="gastos"><h2>Lançar gasto</h2><div class="card"><form id="formGasto"><div><label>Obra</label><select name="obraId" class="selectObras" required></select></div><div><label>Descrição</label><input name="descricao" required></div><div class="row"><div><label>Categoria</label><input name="categoria" placeholder="Material, diária, frete"></div><div><label>Forma de pagamento</label><input name="pagamento" placeholder="Pix, dinheiro, cartão"></div></div><div class="row"><div><label>Quantidade</label><input name="quantidade" type="number" step="0.01" value="1"></div><div><label>Valor unitário</label><input name="valor" type="number" step="0.01" value="0"></div></div><button class="primary">Salvar gasto</button></form></div><div id="listaGastos" class="list"></div></section>
+<section id="notas"><h2>Anotação diária</h2><div class="card"><form id="formNota"><div><label>Obra</label><select name="obraId" class="selectObras" required></select></div><div><label>O que foi feito?</label><textarea name="feito" required></textarea></div><div><label>O que falta?</label><textarea name="falta"></textarea></div><div><label>Materiais para comprar</label><textarea name="materiais"></textarea></div><div><label>Problemas encontrados</label><textarea name="problemas"></textarea></div><button class="primary">Salvar anotação</button></form></div><div id="listaNotas" class="list"></div></section>
+</main>
+<nav><button data-tab="dashboard" class="active">Início</button><button data-tab="clientes">Clientes</button><button data-tab="obras">Obras</button><button data-tab="orcamento">Orç.</button><button data-tab="gastos">Gastos</button><button data-tab="notas">Notas</button></nav>
+<script>
+const storeKey='controle-obras-alves-v1';
+const app=JSON.parse(localStorage.getItem(storeKey)||'{"clientes":[],"obras":[],"orcamento":[],"gastos":[],"notas":[]}');
+const money=v=>(Number(v)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const save=()=>{localStorage.setItem(storeKey,JSON.stringify(app));render()};
+const id=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const esc=v=>String(v||'').replace(/[&<>"]/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]));
+const obraNome=obraId=>{const o=app.obras.find(x=>x.id===obraId);return o?o.servico:'Obra removida'};
+const clienteNome=clienteId=>{const c=app.clientes.find(x=>x.id===clienteId);return c?c.nome:'Cliente não encontrado'};
+const totalGastoObra=obraId=>app.gastos.filter(g=>g.obraId===obraId).reduce((s,g)=>s+(Number(g.quantidade)*Number(g.valor)),0);
+const totalOrcamentoObra=obraId=>app.orcamento.filter(i=>i.obraId===obraId).reduce((s,i)=>s+(Number(i.quantidade)*Number(i.valor)),0);
+document.querySelectorAll('nav button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('section,nav button').forEach(el=>el.classList.remove('active'));document.getElementById(btn.dataset.tab).classList.add('active');btn.classList.add('active')});
+formCliente.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));app.clientes.push({id:id(),...d});e.target.reset();save()};
+formObra.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));app.obras.push({id:id(),...d,valor:Number(d.valor||0)});e.target.reset();save()};
+formOrcamento.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));app.orcamento.push({id:id(),...d,quantidade:Number(d.quantidade||0),valor:Number(d.valor||0)});e.target.reset();save()};
+formGasto.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));app.gastos.push({id:id(),data:new Date().toLocaleDateString('pt-BR'),...d,quantidade:Number(d.quantidade||0),valor:Number(d.valor||0)});e.target.reset();save()};
+formNota.onsubmit=e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.target));app.notas.push({id:id(),data:new Date().toLocaleDateString('pt-BR'),...d});e.target.reset();save()};
+function remover(tipo,itemId){
+ if(!confirm('Tem certeza que deseja apagar?'))return;
+ if(tipo==='clientes'){const obras=app.obras.filter(o=>o.clienteId===itemId).map(o=>o.id);app.clientes=app.clientes.filter(c=>c.id!==itemId);app.obras=app.obras.filter(o=>o.clienteId!==itemId);app.orcamento=app.orcamento.filter(i=>!obras.includes(i.obraId));app.gastos=app.gastos.filter(g=>!obras.includes(g.obraId));app.notas=app.notas.filter(n=>!obras.includes(n.obraId))}
+ else if(tipo==='obras'){app.obras=app.obras.filter(o=>o.id!==itemId);app.orcamento=app.orcamento.filter(i=>i.obraId!==itemId);app.gastos=app.gastos.filter(g=>g.obraId!==itemId);app.notas=app.notas.filter(n=>n.obraId!==itemId)}
+ else{app[tipo]=app[tipo].filter(item=>item.id!==itemId)}
+ save();
+}
+function limparTudo(){if(!confirm('Tem certeza que deseja apagar?'))return;app.clientes=[];app.obras=[];app.orcamento=[];app.gastos=[];app.notas=[];save()}
+function renderOptions(){selectClientes.innerHTML=app.clientes.length?app.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join(''):'<option value="">Cadastre um cliente primeiro</option>';document.querySelectorAll('.selectObras').forEach(s=>s.innerHTML=app.obras.length?app.obras.map(o=>`<option value="${o.id}">${esc(o.servico)} - ${esc(clienteNome(o.clienteId))}</option>`).join(''):'<option value="">Cadastre uma obra primeiro</option>')}
+function render(){renderOptions();const totalGastos=app.gastos.reduce((s,g)=>s+(Number(g.quantidade)*Number(g.valor)),0);const totalCobrado=app.obras.reduce((s,o)=>s+Number(o.valor||0),0);totalClientes.textContent=app.clientes.length;totalObras.textContent=app.obras.length;totalGastos.textContent=money(totalGastos);lucroGeral.textContent=money(totalCobrado-totalGastos);lucroGeral.className='metric '+(totalCobrado-totalGastos>=0?'success':'danger');listaClientes.innerHTML=app.clientes.map(c=>`<div class="item"><div class="top"><strong>${esc(c.nome)}</strong><button class="remover" onclick="remover('clientes','${c.id}')">Apagar</button></div><div class="small">${esc(c.telefone)||'Sem telefone'} • ${esc(c.endereco)||'Sem endereço'}</div><p>${esc(c.observacoes)}</p></div>`).join('')||'<p class="muted">Nenhum cliente cadastrado.</p>';listaObras.innerHTML=app.obras.map(o=>cardObra(o)).join('')||'<p class="muted">Nenhuma obra cadastrada.</p>';listaResumo.innerHTML=app.obras.map(o=>cardObra(o)).join('')||'<p class="muted">Comece cadastrando um cliente e uma obra.</p>';listaOrcamento.innerHTML=app.orcamento.map(i=>`<div class="item"><div class="top"><strong>${esc(i.descricao)}</strong><button class="remover" onclick="remover('orcamento','${i.id}')">Apagar</button></div><div class="small">${esc(obraNome(i.obraId))} • ${i.quantidade} x ${money(i.valor)} = <b>${money(i.quantidade*i.valor)}</b></div></div>`).join('')||'<p class="muted">Nenhum item de orçamento lançado.</p>';listaGastos.innerHTML=app.gastos.map(g=>`<div class="item"><div class="top"><strong>${esc(g.descricao)}</strong><button class="remover" onclick="remover('gastos','${g.id}')">Apagar</button></div><div class="small">${esc(g.data)} • ${esc(obraNome(g.obraId))} • ${esc(g.categoria)||'Sem categoria'} • ${esc(g.pagamento)||'Sem pagamento'}</div><div class="pill">${g.quantidade} x ${money(g.valor)} = ${money(g.quantidade*g.valor)}</div></div>`).join('')||'<p class="muted">Nenhum gasto lançado.</p>';listaNotas.innerHTML=app.notas.map(n=>`<div class="item"><div class="top"><strong>${esc(obraNome(n.obraId))} • ${esc(n.data)}</strong><button class="remover" onclick="remover('notas','${n.id}')">Apagar</button></div><p><b>Feito:</b> ${esc(n.feito)}</p><p><b>Falta:</b> ${esc(n.falta)||'-'}</p><p><b>Comprar:</b> ${esc(n.materiais)||'-'}</p><p><b>Problemas:</b> ${esc(n.problemas)||'-'}</p></div>`).join('')||'<p class="muted">Nenhuma anotação lançada.</p>'}
+function cardObra(o){const gasto=totalGastoObra(o.id);const lucro=Number(o.valor||0)-gasto;const orcado=totalOrcamentoObra(o.id);return `<div class="item"><div class="top"><strong>${esc(o.servico)}</strong><button class="remover" onclick="remover('obras','${o.id}')">Apagar</button></div><div class="small">${esc(clienteNome(o.clienteId))} • ${esc(o.status)} • ${esc(o.endereco)||'Sem endereço'}</div><div class="pill">Cobrado: ${money(o.valor)}</div> <div class="pill">Orçamento materiais: ${money(orcado)}</div> <div class="pill">Gastos: ${money(gasto)}</div><p class="${lucro>=0?'success':'danger'}">Resultado: ${money(lucro)}</p><p>${esc(o.observacoes)}</p></div>`}
+render();
+</script>
 </body>
 </html>
